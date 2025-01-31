@@ -188,20 +188,57 @@ async def TranslateAndExecute(commands: list[str]):
                 pass
             
             else:
-                 fun = asyncio.to_thread(OpenApp, command. removeprefix("open " ) )
-                 funcs.append(fun)
-etif command. startswith( "general
-pass
-etif command. startswith( "real time
-pass
-etif command. startswith( "close "):
-fun
-asyncio. ,
-# Placeholder for genera? commands.
-1
-$ P! aceho[dEI' for real- comcnanös
-Hand! e co€nmandfi.
-command. removeprefix( " close
+                fun = asyncio.to_thread(OpenApp, command.removeprefix("open "))
+                funcs.append(fun)
+
+        elif command.startswith("general "):  # Placeholder for general commands.
+            pass
+
+        elif command.startswith("realtime "):  # Placeholder for real-time commands.
+            pass
+
+        elif command.startswith("close "):  # Handle "close" commands.
+            fun = asyncio.to_thread(CloseApp, command.removeprefix("close "))  # Schedule app closing.
+            funcs.append(fun)
+
+        elif command.startswith("play "):  # Handle "play" commands.
+            fun = asyncio.to_thread(PlayYoutube, command.removeprefix("play "))  # Schedule YouTube playback.
+            funcs.append(fun)
+
+        elif command.startswith("content "):  # Handle "content" commands.
+            fun = asyncio.to_thread(Content, command.removeprefix("content "))  # Schedule content creation.
+            funcs.append(fun)
+
+        elif command.startswith("google search "):  # Handle Google search commands.
+            fun = asyncio.to_thread(GoogleSearch, command.removeprefix("google search "))  # Schedule Google search.
+            funcs.append(fun)
+
+        elif command.startswith("youtube search "):  # Handle YouTube search commands.
+            fun = asyncio.to_thread(YouTubeSearch, command.removeprefix("youtube search "))  # Schedule YouTube search.
+            funcs.append(fun)
+
+        elif command.startswith("system "):  # Handle system commands.
+            fun = asyncio.to_thread(System, command.removeprefix("system "))  # Schedule system command.
+            funcs.append(fun)
+
+        else:
+            print(f"No function found. for {command}")  # Print an error for unrecognized commands.
+
+    results = await asyncio.gather(*funcs)  # Execute all tasks concurrently.
+
+    for result in results:  # Process the results.
+        if isinstance(result, str):
+            yield result
+        else:
+            yield result
+
+# Execute the automation commands asynchronously and gracefully.
+async def Automation(commands: list[str]):
+    async for result in TranslateAndExecute(commands):  # Translate and execute commands.
+        pass
+    
+    return True  # Indicate success.
+
         
 
         
