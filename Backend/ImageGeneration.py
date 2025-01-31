@@ -41,7 +41,7 @@ async def generate_images(prompt: str):
     # Create 4 image generation tasks
     for _ in range(4):
         payload = {
-            "inputs": f"{prompt}, quality=4K, sharpness=maximum, Ultra High details, high resolution, seed = {randint(0, 1000000)}"
+            "inputs": f"{prompt}, quality=4K, sharpness=maximum, Ultra High details, high resolution, seed = {randint(0, 1000000)}",
         }
         task = asyncio.create_task(query(payload))
         tasks.append(task)
@@ -80,5 +80,5 @@ while True:
         else:
             sleep(1)  # Wait for 1 second before checking again
 
-    except Exception as e:
-        print(e)
+    except:
+        pass
